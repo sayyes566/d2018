@@ -6,8 +6,8 @@ import './registerServiceWorker';
 
 import BootstrapVue from 'bootstrap-vue'
 
-//Vue.use(BootstrapVue);
-//Vue.config.productionTip = false;
+Vue.use(BootstrapVue);
+Vue.config.productionTip = false;
 
 new Vue({
   router,

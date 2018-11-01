@@ -1,17 +1,26 @@
-const webpack = require('webpack');
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
-  baseUrl: process.env.NODE_ENV === 'production'
+baseUrl: process.env.NODE_ENV === 'production'
     ? '/production-sub-path/'
     : '/',
-  chainWebpack: config => {
-        config
-            .plugin('provide')
-            .use(webpack.ProvidePlugin, [{
-                $: 'jquery',
-                jquery: 'jquery',
-                jQuery: 'jquery',
-                'window.jQuery': 'jquery'
-            }]);
+  configureWebpack: {
+    resolve: {
+      extensions: ['.js'],
+      alias: {
+        'jquery': 'jquery/dist/jquery.slim.js',
+      }
     },
+    plugins: [
+      new webpack.ProvidePlugin({
+        '$': 'jquery',
+        jQuery: 'jquery',
+        Popper: ['popper.js', 'default'],
+        'Util': "exports-loader?Util!bootstrap/js/dist/util"
+      }),
+      // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    ]
+  }
 }
+
